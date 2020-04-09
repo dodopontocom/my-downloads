@@ -17,10 +17,10 @@ d_count=0
 for i in ${ignore_folders[@]}; do
     IFS=$(echo -en "\n\b")
     mv ${i} ${download_new_month}/
-    d_count+=1
+    d_count=$((d_count+1))
     IFS=$SAVEIFS
 done
-echo "${d_count} pastas salvas"
+echo "${d_count} pasta(s) salva(s)"
 
 #lista de possíveis extensoes, as mais comuns que eu tenho/baixo
 types=(doc docx pdf jpg png mp3 mp4 avi mkv deb iso gz zip srt epub rar txt sh torrent)
@@ -32,11 +32,11 @@ for t in ${types[@]}; do
     IFS=$(echo -en "\n\b")
     for i in $(find ${download_folder} -type f -iname "*.${t}" | grep -v "${download_new_month}"); do
         mv ${i} ${download_new_month}/${t^^}
-        f_count+=1
+        f_count=$((f_count+1))
     done
     IFS=$SAVEIFS
 done
-echo "${d_count} arquivos salvos"
+echo "${d_count} arquivo(s) salvo(s)"
 
 #se sobrar arquivos(extensoes nao listadas anteriormente) entao jogar esses arquivos soltos na pasta do mes
 IFS=$(echo -en "\n\b")
