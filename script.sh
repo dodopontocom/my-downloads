@@ -13,24 +13,30 @@ download_new_month="${download_folder}/$(date +%Y_%b)"
 ignore_folders=($(find ${download_folder} -maxdepth 1 -type d | grep -v "^.$" | grep -v "${download_new_month}" | tr '\n' ' '))
 
 #antes de tudo, encontrar diretorios/pastas e joga-los na pasta backup do mes
+d_count=0
 for i in ${ignore_folders[@]}; do
     IFS=$(echo -en "\n\b")
     mv ${i} ${download_new_month}/
+    d_count+=1
     IFS=$SAVEIFS
 done
+echo "${d_count} pastas salvas"
 
 #lista de possíveis extensoes, as mais comuns que eu tenho/baixo
 types=(doc docx pdf jpg png mp3 mp4 avi mkv deb iso gz zip srt epub rar txt sh torrent)
 
 #criar pastas dentro da pasta do mes com os nomes das extensoes e jogar os arquivos relacionados la
+f_count=0
 for t in ${types[@]}; do
     [[ -d ${download_new_month}/${t^^} ]] || mkdir ${download_new_month}/${t^^}
     IFS=$(echo -en "\n\b")
     for i in $(find ${download_folder} -type f -iname "*.${t}" | grep -v "${download_new_month}"); do
         mv ${i} ${download_new_month}/${t^^}
+        f_count+=1
     done
     IFS=$SAVEIFS
 done
+echo "${d_count} arquivos salvos"
 
 #se sobrar arquivos(extensoes nao listadas anteriormente) entao jogar esses arquivos soltos na pasta do mes
 IFS=$(echo -en "\n\b")
