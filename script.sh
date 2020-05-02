@@ -23,7 +23,7 @@ done
 echo "${d_count} pasta(s) salva(s)"
 
 #lista de possíveis extensoes, as mais comuns que eu tenho/baixo
-types=(doc docx pdf jpg png mp3 mp4 avi mkv deb iso gz zip srt epub rar txt sh torrent)
+types=(json doc docx pdf jpg png mp3 mp4 avi mkv deb iso gz zip srt epub rar txt sh torrent)
 
 #criar pastas dentro da pasta do mes com os nomes das extensoes e jogar os arquivos relacionados la
 f_count=0
